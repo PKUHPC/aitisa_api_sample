@@ -55,3 +55,5 @@ dkms.conf
 *.vscode/
 /cmake-build-debug/
 /third_party/
+/build/
+/.idea/
