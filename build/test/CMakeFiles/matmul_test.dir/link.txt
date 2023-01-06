@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=c++11 -g   CMakeFiles/matmul_test.dir/matmul_test.cpp.o  -o ../bin/matmul_test   -L/home/xgy/Desktop/aitisa_api/build/lib  -Wl,-rpath,/home/xgy/Desktop/aitisa_api/build/lib ../lib/libgmock_maind.so -Wl,--no-as-needed -laitisa_api -Wl,--as-needed ../lib/libgmockd.so ../lib/libgtestd.so -pthread 
