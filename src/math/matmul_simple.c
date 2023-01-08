@@ -1,9 +1,12 @@
 #include "src/math/matmul_simple.h"
+#include "src/basic/broadcast.h"
+#include "src/basic/factories.h"
+#include "src/core/allocator.h"
 #include "src/core/dispatch.h"
 #include "src/core/utils.h"
 
 // kernel of matrix-matrix multiply
-#define MM_KERNEL(typename, A, B, C, M, K, N)                                \
+#define MM_KERNEL_SIMPLE(typename, A, B, C, M, K, N)                         \
     for (int i = 0; i < M; ++i)                                              \
     {                                                                        \
         for (int j = 0; j < N; ++j)                                          \
@@ -17,10 +20,10 @@
     }
 
 // choose mm kernel according to dtype.code
-Status mm_template(DataType dtype, void *A, void *B, void *C, int64_t M,
-                   int64_t K, int64_t N)
+Status mm_simple_template(DataType dtype, void *A, void *B, void *C, int64_t M,
+                          int64_t K, int64_t N)
 {
-    AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, MM_KERNEL, A, B, C, M, K,
+    AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, MM_KERNEL_SIMPLE, A, B, C, M, K,
                                      N);
     return STATUS_SUCCESS;
 }
@@ -55,7 +58,7 @@ Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
                                  aitisa_tensor_device(tensor1), dims_out, ndim_out,
                                  0.0, output));
         // call kernel
-        CHECK_STATUS(mm_template(
+        CHECK_STATUS(mm_simple_template(
             aitisa_tensor_data_type(tensor1), aitisa_tensor_data(tensor1),
             aitisa_tensor_data(tensor2), aitisa_tensor_data(*output), dim0_tensor1,
             dim1_tensor1, dim1_tensor2));
