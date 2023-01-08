@@ -3,6 +3,7 @@ list(APPEND aitisa_test_srcs
   conv_test.cpp
   matmul_test.cpp
   relu_test.cpp
+  matmul_simple_test.cpp
 )
 
 # Build a exe for each test files
