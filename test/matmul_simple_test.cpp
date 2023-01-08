@@ -6,7 +6,7 @@ extern "C"
     // #include "src/tool/tool.h"
 }
 
-void natural_assign(Tensor t)
+void matmul_simple_assign(Tensor t)
 {
     int64_t ndim = aitisa_tensor_ndim(t);
     int64_t *dims = aitisa_tensor_dims(t);
@@ -34,8 +34,8 @@ namespace aitisa_api
             int64_t dims2[2] = {4, 3};
             aitisa_full(dtype, device, dims1, 2, 2.1, &tensor1);
             aitisa_full(dtype, device, dims2, 2, 2.0, &tensor2);
-            natural_assign(tensor1);
-            natural_assign(tensor2);
+            matmul_simple_assign(tensor1);
+            matmul_simple_assign(tensor2);
             Tensor output;
             aitisa_matmul_simple(tensor1, tensor2, &output);
             /*
