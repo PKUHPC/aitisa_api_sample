@@ -90,7 +90,7 @@ namespace aitisa_api
             aitisa_destroy(&output);
         }
 
-	TEST(Matmul_double_case1, matrix_matrix)
+        TEST(Matmul_double_case1, matrix_matrix)
         {
             Tensor tensor1;
             Tensor tensor2;
@@ -104,7 +104,7 @@ namespace aitisa_api
             matmul_simple_assign_double(tensor2);
             Tensor output;
             aitisa_matmul_simple(tensor1, tensor2, &output);
-            
+
             int64_t expected_ndim = 2;
             int64_t expected_dims[2] = {5, 3};
             EXPECT_EQ(expected_ndim, aitisa_tensor_ndim(output));
@@ -114,7 +114,7 @@ namespace aitisa_api
             }
             double *data = (double *)aitisa_tensor_data(output);
             double result[15] = {0.42, 0.48, 0.54, 1.14, 1.36, 1.58, 1.86, 2.24,
-                                2.62, 2.58, 3.12, 3.66, 3.3, 4, 4.7};
+                                 2.62, 2.58, 3.12, 3.66, 3.3, 4, 4.7};
             for (int i = 0; i < aitisa_tensor_size(output); ++i)
             {
                 EXPECT_DOUBLE_EQ(result[i], data[i]);
@@ -148,17 +148,16 @@ namespace aitisa_api
             }
             int *data = (int *)aitisa_tensor_data(output);
             int result[15] = {42, 48, 54, 114, 136, 158, 186, 224,
-                                262, 258, 312, 366, 330, 400, 470};
+                              262, 258, 312, 366, 330, 400, 470};
             for (int i = 0; i < aitisa_tensor_size(output); ++i)
             {
-                //EXPECT_DOUBLE_EQ(result[i], data[i]);
+                // EXPECT_DOUBLE_EQ(result[i], data[i]);
                 EXPECT_TRUE(abs(result[i] - data[i]) < 0.000001);
             }
             aitisa_destroy(&tensor1);
             aitisa_destroy(&tensor2);
             aitisa_destroy(&output);
         }
-
 
     } // namespace
 } // namespace aitisa_api
