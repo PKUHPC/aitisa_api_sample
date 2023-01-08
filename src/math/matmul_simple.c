@@ -29,8 +29,8 @@ Status mm_simple_template(DataType dtype, void *A, void *B, void *C, int64_t M,
 }
 
 // Definition of aitisa_matmul.
-Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
-                     Tensor *output)
+Status aitisa_matmul_simple(const Tensor tensor1, const Tensor tensor2,
+                            Tensor *output)
 {
     if (aitisa_tensor_device(tensor1).type != DEVICE_CPU ||
         aitisa_tensor_device(tensor2).type != DEVICE_CPU)
