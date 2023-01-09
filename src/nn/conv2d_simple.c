@@ -70,18 +70,6 @@ Status aitisa_conv2d_simple(const Tensor input, const Tensor filter,
         return STATUS_DIMENSIONS_MISMATCH;
     }
 
-    // check dtype
-    DataType dtype = aitisa_tensor_data_type(input);
-    switch (dtype.code)
-    {
-    case TYPE_FLOAT:
-        CHECK_STATUS(aitisa_conv2d_float(input, filter, output));
-        break;
-    default:
-        return STATUS_NOT_SUPPORTED;
-    }
-
-    // matrix-matrix
     int64_t num_batches = dims_input[0];
     int64_t in_channels = dims_input[1];
     int64_t height = dims_input[2];
@@ -99,10 +87,10 @@ Status aitisa_conv2d_simple(const Tensor input, const Tensor filter,
                              aitisa_tensor_device(input), dims_out, ndim_out,
                              0.0, output));
     // call kernel
-    // CHECK_STATUS(mm_simple_template(
-    //     aitisa_tensor_data_type(tensor1), aitisa_tensor_data(tensor1),
-    //     aitisa_tensor_data(tensor2), aitisa_tensor_data(*output), dim0_tensor1,
-    //     dim1_tensor1, dim1_tensor2));
+    CHECK_STATUS(conv2d_simple_template(
+        aitisa_tensor_data_type(input), aitisa_tensor_data(input),
+        aitisa_tensor_data(filter), aitisa_tensor_data(*output), num_batches,
+        in_channels, height, width, out_channels, kernel_size));
 
     return status;
 }
