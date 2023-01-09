@@ -2,7 +2,7 @@
 extern "C"
 {
 #include "src/basic/factories.h"
-#include "src/math/conv2d_simple.h"
+#include "src/nn/conv2d_simple.h"
   // #include "src/tool/tool.h"
 }
 
