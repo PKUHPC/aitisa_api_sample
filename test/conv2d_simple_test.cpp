@@ -27,30 +27,6 @@ namespace aitisa_api
             int ndim = aitisa_tensor_ndim(input);
 
             aitisa_conv2d_simple(input, filter, &output);
-            int64_t *output_dims = aitisa_tensor_dims(output);
-
-            for (int i = 0; i < ndim; ++i)
-            {
-                std::cout << output_dims[i] << ", ";
-            }
-            std::cout << std::endl;
-
-            float *input_data = (float *)aitisa_tensor_data(input);
-            int64_t input_size = aitisa_tensor_size(input);
-            for (int i = 0; i < input_size; ++i)
-            {
-                std::cout << input_data[i] << ", ";
-            }
-            std::cout << std::endl;
-
-            float *filter_data = (float *)aitisa_tensor_data(filter);
-            int64_t filter_size = aitisa_tensor_size(filter);
-            for (int i = 0; i < filter_size; ++i)
-            {
-                std::cout << filter_data[i] << ", ";
-            }
-            std::cout << std::endl;
-
             float *output_data = (float *)aitisa_tensor_data(output);
             int64_t output_size = aitisa_tensor_size(output);
             for (int i = 0; i < output_size; ++i)

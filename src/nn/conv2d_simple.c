@@ -17,14 +17,14 @@
             {                                                                                                                     \
                 for (int j = 0; j < W_out; j++)                                                                                   \
                 {                                                                                                                 \
+                    int offset_output = n * C_out * H_out * W_out + c * H_out * W_out + i * W_out + j;                            \
                     for (int kc = 0; kc < C_in; kc++)                                                                             \
                     {                                                                                                             \
                         for (int ki = 0; ki < K; ki++)                                                                            \
                         {                                                                                                         \
                             for (int kj = 0; kj < K; kj++)                                                                        \
                             {                                                                                                     \
-                                int offset_output = n * C_out * H_out * W_out + c * H_out * W_out + i * W_out + j;                \
-                                int offset_input = n * C_out * H * W + kc * H * W + (i + ki) * W + (j + kj);                      \
+                                int offset_input = n * C_in * H * W + kc * H * W + (i + ki) * W + (j + kj);                       \
                                 int offset_filter = c * C_in * K * K + kc * K * K + ki * K + kj;                                  \
                                 ((typename *)C)[offset_output] += ((typename *)A)[offset_input] * ((typename *)B)[offset_filter]; \
                             }                                                                                                     \
