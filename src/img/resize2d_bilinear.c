@@ -31,6 +31,15 @@ Status aitisa_resize2d_bilinear(const Tensor input, int target_h, int target_w,
   int64_t* dims = aitisa_tensor_dims(input);
   int64_t ndim = aitisa_tensor_ndim(input);
   Status status = STATUS_SUCCESS;
+  DataType dtype = aitisa_tensor_data_type(input);
+  switch (dtype.code) {
+    case TYPE_FLOAT:
+      break;
+    case TYPE_DOUBLE:
+      break;
+    default:
+      return STATUS_NOT_SUPPORTED;
+  }
   if (ndim == 2)  // [H, W]
   {
     int h = dims[0];
