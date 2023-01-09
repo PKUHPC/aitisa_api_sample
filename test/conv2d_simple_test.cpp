@@ -1,6 +1,6 @@
 #include <vector>
-#include "gmock/gmock.h"
 #include "gtest/gtest.h"
+#include "test/test_data/read_data.h"
 
 extern "C" {
 #include "src/basic/factories.h"
@@ -22,7 +22,10 @@ TEST(Conv2DSimple, Float_case1) {
   int ndim = aitisa_tensor_ndim(input);
 
   aitisa_conv2d_simple(input, filter, &output);
-  float* output_data = (float*)aitisa_tensor_data(output);
+  auto output_data = (float*)aitisa_tensor_data(output);
+  char path[] = "../../test/test_data/Conv_float_case1.dat";
+  float result[1];
+  read_date(path, result);
   int64_t output_size = aitisa_tensor_size(output);
   for (int i = 0; i < output_size; ++i) {
     EXPECT_EQ(18.0, output_data[i]);
