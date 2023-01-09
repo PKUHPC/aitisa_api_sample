@@ -10,6 +10,10 @@
       double raw_v = j * (double)w / (double)target_w;                     \
       int64_t u = (int64_t)raw_u;                                          \
       int64_t v = (int64_t)raw_v;                                          \
+      if (u + 1 == h || v + 1 == w) {                                      \
+        out_data[i * target_w + j] = in_data[u * w + v];                   \
+        continue;                                                          \
+      }                                                                    \
       typename f00 = in_data[u * w + v];                                   \
       typename f01 = in_data[u * w + v + 1];                               \
       typename f10 = in_data[(u + 1) * w + v];                             \
