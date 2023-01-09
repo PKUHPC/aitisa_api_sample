@@ -1,9 +1,11 @@
+#include <vector>
+#include "gmock/gmock.h"
 #include "gtest/gtest.h"
-extern "C"
-{
+
+extern "C" {
 #include "src/basic/factories.h"
-#include "src/nn/conv2d_simple.h"
-  // #include "src/tool/tool.h"
+#include "src/nn/conv.h"
+//#include "src/tool/tool.h"
 }
 
 namespace aitisa_api
