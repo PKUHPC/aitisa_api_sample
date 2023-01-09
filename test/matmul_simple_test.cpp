@@ -1,4 +1,5 @@
 #include "gtest/gtest.h"
+#include "test/test_data/read_data.h"
 extern "C" {
 #include "src/basic/factories.h"
 #include "src/math/matmul_simple.h"
@@ -62,9 +63,11 @@ TEST(Matmul_float_case1, matrix_matrix) {
   for (int i = 0; i < expected_ndim; ++i) {
     EXPECT_EQ(expected_dims[i], aitisa_tensor_dim(output, i));
   }
-  float* data = (float*)aitisa_tensor_data(output);
-  float result[15] = {0.42, 0.48, 0.54, 1.14, 1.36, 1.58, 1.86, 2.24,
-                      2.62, 2.58, 3.12, 3.66, 3.3,  4,    4.7};
+  auto* data = (float*)aitisa_tensor_data(output);
+  char path[] = "../../test/test_data/Matmul_float_case1.dat";
+  float result[15];
+  read_date(path, result);
+
   for (int i = 0; i < aitisa_tensor_size(output); ++i) {
     EXPECT_FLOAT_EQ(result[i], data[i]);
   }
@@ -93,9 +96,10 @@ TEST(Matmul_double_case1, matrix_matrix) {
   for (int i = 0; i < expected_ndim; ++i) {
     EXPECT_EQ(expected_dims[i], aitisa_tensor_dim(output, i));
   }
-  double* data = (double*)aitisa_tensor_data(output);
-  double result[15] = {0.42, 0.48, 0.54, 1.14, 1.36, 1.58, 1.86, 2.24,
-                       2.62, 2.58, 3.12, 3.66, 3.3,  4,    4.7};
+  auto* data = (double*)aitisa_tensor_data(output);
+  char path[] = "../../test/test_data/Matmul_double_case1.dat";
+  double result[15];
+  read_date(path, result);
   for (int i = 0; i < aitisa_tensor_size(output); ++i) {
     EXPECT_DOUBLE_EQ(result[i], data[i]);
   }
@@ -124,9 +128,10 @@ TEST(Matmul_int_case1, matrix_matrix) {
   for (int i = 0; i < expected_ndim; ++i) {
     EXPECT_EQ(expected_dims[i], aitisa_tensor_dim(output, i));
   }
-  int* data = (int*)aitisa_tensor_data(output);
-  int result[15] = {42,  48,  54,  114, 136, 158, 186, 224,
-                    262, 258, 312, 366, 330, 400, 470};
+  auto data = (int*)aitisa_tensor_data(output);
+  char path[] = "../../test/test_data/Matmul_int_case1.dat";
+  int result[15];
+  read_date(path, result);
   for (int i = 0; i < aitisa_tensor_size(output); ++i) {
     EXPECT_TRUE(abs(result[i] - data[i]) < 0.000001);
   }
