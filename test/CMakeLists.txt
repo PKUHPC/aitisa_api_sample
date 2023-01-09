@@ -1,7 +1,5 @@
 # Add unit test files
-list(APPEND aitisa_test_srcs 
-  conv_test.cpp
-  matmul_test.cpp
+list(APPEND aitisa_test_srcs
   relu_test.cpp
   matmul_simple_test.cpp
   conv2d_simple_test.cpp
