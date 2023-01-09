@@ -45,7 +45,7 @@ Status aitisa_resize2d_bilinear(const Tensor input, int target_h, int target_w,
     int h = dims[0];
     int w = dims[1];
 
-    int64_t* output_dims[2] = {target_h, target_w};
+    int64_t output_dims[2] = {target_h, target_w};
 
     Tensor new_tensor;
     DataType dtype = aitisa_tensor_data_type(input);
