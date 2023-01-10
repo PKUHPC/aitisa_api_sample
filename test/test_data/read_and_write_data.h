@@ -1,23 +1,34 @@
 #include <fstream>
 #include <iostream>
-template <class datetype>
-void read_date(std::string path, datetype* a) {
-  int num;
+template <class datatype>
+void read_date(std::string path, int64_t* ndim, std::vector<int64_t>* dims,
+               int64_t* dtype, int64_t* num, std::vector<datatype>* a) {
   std::ifstream infile;
   infile.open(path, std::ios::in);
   if (!infile.is_open()) {
     std::cout << "read error" << std::endl;
     exit(1);
   }
-  infile >> num;
-  for (int i = 0; i < num; i++) {
-    infile >> a[i];
+  infile >> *ndim;
+  std::vector<int64_t> dim;
+  for (int i = 0; i < *ndim; i++) {
+    int64_t tmp;
+    infile >> tmp;
+    dims->push_back(tmp);
+  }
+  infile >> *dtype;
+  infile >> *num;
+  for (int i = 0; i < *num; i++) {
+    datatype tmp;
+    infile >> tmp;
+    a->push_back(tmp);
   }
   infile.close();
 }
 
 template <class datetype>
-void write_date(std::string path, int num, datetype* a) {
+void write_date(std::string path, int64_t ndim, std::vector<int64_t> dims,
+                int64_t dtype, int64_t num, datetype* a) {
 
   std::ofstream outfile;
   outfile.open(path, std::ios::out);
@@ -25,6 +36,12 @@ void write_date(std::string path, int num, datetype* a) {
     std::cout << "write error" << std::endl;
     exit(1);
   }
+  outfile << ndim << std::endl;
+  for (int i = 0; i < ndim; i++) {
+    outfile << dims[i] << " ";
+  }
+  outfile << std::endl;
+  outfile << dtype << std::endl;
   outfile << num << std::endl;
   for (int i = 0; i < num; i++) {
     outfile << a[i] << " ";
