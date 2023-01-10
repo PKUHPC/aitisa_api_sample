@@ -12,7 +12,7 @@ You can setup *Standard APIs for AI operations* by following instructions:
 1. Use **git clone** instruction to download source code
 
       ```bash
-      git clone https://github.com/pku-hpc/aitisa_api.git
+      git clone git@github.com:PKUHPC/aitisa_api_sample.git
       ```
 
 2. Make a new directory **build** under the project directory, then use **cmake** instruction
@@ -33,5 +33,5 @@ You can setup *Standard APIs for AI operations* by following instructions:
 
       ```bash
       cd bin
-      ./conv_test
+      ./conv2d_simple_test 
       ```
