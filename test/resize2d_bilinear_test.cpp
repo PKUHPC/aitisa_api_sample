@@ -1,3 +1,4 @@
+#include <iostream>
 //#include "test/test_data/read_data.h"
 //extern "C" {
 //#include "src/nn/resize2d_bilinear.h"
@@ -69,3 +70,7 @@
 //}
 //}  // namespace
 //}  // namespace aitisa_api
+int main(int argc, char **argv) {
+  std::cout << "resize" << std::endl;
+  return 0;
+}

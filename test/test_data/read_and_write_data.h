@@ -6,7 +6,7 @@ void read_date(std::string path, datetype* a) {
   std::ifstream infile;
   infile.open(path, std::ios::in);
   if (!infile.is_open()) {
-    std::cout << "error" << std::endl;
+    std::cout << "read error" << std::endl;
     exit(1);
   }
   infile >> num;
@@ -22,7 +22,7 @@ void write_date(std::string path, int num, datetype* a) {
   std::ofstream outfile;
   outfile.open(path, std::ios::out);
   if (!outfile.is_open()) {
-    std::cout << "error" << std::endl;
+    std::cout << "write error" << std::endl;
     exit(1);
   }
   outfile << num << std::endl;

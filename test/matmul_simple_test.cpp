@@ -1,3 +1,4 @@
+#include <iostream>
 //#include "test/test_data/read_data.h"
 //extern "C" {
 //#include "src/basic/factories.h"
@@ -141,3 +142,7 @@
 //
 //}  // namespace
 //}  // namespace aitisa_api
+int main(int argc, char **argv) {
+  std::cout << "matmul" << std::endl;
+  return 0;
+}
