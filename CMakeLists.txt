@@ -6,7 +6,6 @@ project(aitisa_api VERSION 0.4.0 LANGUAGES C CXX)
 ##############################################
 option(AITISA_API_BUILD_SHARED_LIBS "Compiled as a shared library" ON)
 option(AITISA_API_BUILD_TESTING "Build with testing enabled" ON)
-option(AITISA_API_USE_GTEST_LOCAL "Download and build with GTest" ON)
 
 if(AITISA_API_BUILD_SHARED_LIBS)
   set(BUILD_SHARED_LIBS ON CACHE INTERNAL "")
@@ -85,11 +84,5 @@ add_library(aitisa_api::aitisa_api ALIAS aitisa_api_interface)
 # Testing
 ##############################################
 if(AITISA_API_BUILD_TESTING)
-  enable_testing()
-  if(AITISA_API_USE_GTEST_LOCAL)
-    include(cmake/local/GTest.cmake)
-  else()
-    include(cmake/public/GTest.cmake)
-  endif()
   add_subdirectory(test)
 endif()
