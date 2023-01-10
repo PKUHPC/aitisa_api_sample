@@ -12,7 +12,7 @@ You can setup *Standard APIs for AI operations* by following instructions:
 1. Use **git clone** instruction to download source code
 
       ```bash
-      git clone git@github.com:PKUHPC/aitisa_api_sample.git
+      git clone https://github.com/PKUHPC/aitisa_api_sample.git
       ```
 
 2. Make a new directory **build** under the project directory, then use **cmake** instruction
