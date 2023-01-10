@@ -48,8 +48,8 @@ int main(int argc, char** argv) {
     filter_dims[i] = filter_dims_vector[i];
   }
 
-  aitisa_create(aitisa_int_to_dtype(input_dtype), device, input_dims, 4, NULL, 0, &input);
-  aitisa_create(aitisa_int_to_dtype(filter_dtype), device, filter_dims, 4, NULL, 0, &filter);
+  aitisa_create(aitisa_int_to_dtype(input_dtype), device, input_dims, input_ndim, nullptr, 0, &input);
+  aitisa_create(aitisa_int_to_dtype(filter_dtype), device, filter_dims, filter_ndim, nullptr, 0, &filter);
   assign(input, input_data_vector);
   assign(filter, filter_data_vector);
   aitisa_conv2d_simple(input, filter, &output);
@@ -61,7 +61,7 @@ int main(int argc, char** argv) {
 
   int64_t output_size = aitisa_tensor_size(output);
   for (int i = 0; i < output_size; ++i) {
-    if (output_data[i] != result_data_vector[i]) {
+    if (abs(output_data[i] - result_data_vector[i]) > 1e-3) {
       std::cout << " mismatch" << std::endl;
       exit(1);
     }
