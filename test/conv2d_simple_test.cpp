@@ -5,6 +5,12 @@ extern "C" {
 #include "src/basic/factories.h"
 #include "src/nn/conv2d_simple.h"
 }
+const DataType aitisa_dtypes[10] = {kInt8,   kUint8, kInt16,  kUint16, kInt32,
+                                    kUint32, kInt64, kUint64, kFloat,  kDouble};
+inline DataType aitisa_int_to_dtype(int n) {
+  return aitisa_dtypes[n];
+}
+
 template <class datatype>
 void assign(Tensor t, std::vector<datatype> input_data) {
   int64_t size = aitisa_tensor_size(t);
@@ -15,7 +21,6 @@ void assign(Tensor t, std::vector<datatype> input_data) {
 }
 int main(int argc, char** argv) {
   Tensor input, filter, output;
-  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t input_ndim, filter_ndim, result_ndim, input_dtype, filter_dtype,
       result_dtype, input_num, filter_num, result_num;
@@ -43,8 +48,8 @@ int main(int argc, char** argv) {
     filter_dims[i] = filter_dims_vector[i];
   }
 
-  aitisa_create(dtype, device, input_dims, 4, NULL, 0, &input);
-  aitisa_create(dtype, device, filter_dims, 4, NULL, 0, &filter);
+  aitisa_create(aitisa_int_to_dtype(input_dtype), device, input_dims, 4, NULL, 0, &input);
+  aitisa_create(aitisa_int_to_dtype(filter_dtype), device, filter_dims, 4, NULL, 0, &filter);
   assign(input, input_data_vector);
   assign(filter, filter_data_vector);
   aitisa_conv2d_simple(input, filter, &output);
