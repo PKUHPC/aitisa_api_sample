@@ -1,7 +1,7 @@
 #include <fstream>
 #include <iostream>
 template <class datatype>
-void read_date(std::string path, int64_t* ndim, std::vector<int64_t>* dims,
+void read_data(std::string path, int64_t* ndim, std::vector<int64_t>* dims,
                int64_t* dtype, int64_t* num, std::vector<datatype>* a) {
   std::ifstream infile;
   infile.open(path, std::ios::in);
@@ -26,9 +26,9 @@ void read_date(std::string path, int64_t* ndim, std::vector<int64_t>* dims,
   infile.close();
 }
 
-template <class datetype>
-void write_date(std::string path, int64_t ndim, std::vector<int64_t> dims,
-                int64_t dtype, int64_t num, datetype* a) {
+template <class datatype>
+void write_data(std::string path, int64_t ndim, std::vector<int64_t> dims,
+                int64_t dtype, int64_t num, datatype* a) {
 
   std::ofstream outfile;
   outfile.open(path, std::ios::out);

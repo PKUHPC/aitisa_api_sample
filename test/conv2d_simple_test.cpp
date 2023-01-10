@@ -22,10 +22,10 @@ int main(int argc, char** argv) {
   std::vector<int64_t> input_dims_vector, filter_dims_vector,
       result_dims_vector;
   std::vector<float> input_data_vector, filter_data_vector, result_data_vector;
-  read_date("../../test/test_data/input/Conv_float_case1_input.dat",
+  read_data("../../test/test_data/input/Conv_float_case1_input.dat",
             &input_ndim, &input_dims_vector, &input_dtype, &input_num,
             &input_data_vector);
-  read_date("../../test/test_data/input/Conv_float_case1_filter.dat",
+  read_data("../../test/test_data/input/Conv_float_case1_filter.dat",
             &filter_ndim, &filter_dims_vector, &filter_dtype, &filter_num,
             &filter_data_vector);
 
@@ -50,7 +50,7 @@ int main(int argc, char** argv) {
   aitisa_conv2d_simple(input, filter, &output);
 
   auto output_data = (float*)aitisa_tensor_data(output);
-  read_date("../../test/test_data/ans/Conv_float_case1.dat", &result_ndim,
+  read_data("../../test/test_data/ans/Conv_float_case1.dat", &result_ndim,
             &result_dims_vector, &result_dtype, &result_num,
             &result_data_vector);
 
