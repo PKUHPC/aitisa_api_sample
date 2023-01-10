@@ -1,24 +1,8 @@
-#include <vector>
-#include "test/test_data/read_and_write_data.h"
-
+#include "test_utlis.h"
 extern "C" {
-#include "src/basic/factories.h"
 #include "src/nn/conv2d_simple.h"
 }
-const DataType aitisa_dtypes[10] = {kInt8,   kUint8, kInt16,  kUint16, kInt32,
-                                    kUint32, kInt64, kUint64, kFloat,  kDouble};
-inline DataType aitisa_int_to_dtype(int n) {
-  return aitisa_dtypes[n];
-}
 
-template <class datatype>
-void assign(Tensor t, std::vector<datatype> input_data) {
-  int64_t size = aitisa_tensor_size(t);
-  auto* tensor_data = (float*)aitisa_tensor_data(t);
-  for (int i = 0; i < size; ++i) {
-    tensor_data[i] = input_data[i];
-  }
-}
 int main(int argc, char** argv) {
   if (argc == 4) {
     Tensor input, filter, output;
@@ -75,10 +59,13 @@ int main(int argc, char** argv) {
     aitisa_destroy(&filter);
     aitisa_destroy(&output);
   } else if (argc > 4) {
-    printf("Too many arguments supplied.\n");
+    std::cout << "Too many arguments supplied." << std::endl;
     exit(1);
   } else {
-    printf("Three argument expected. Usage: ./conv2d_simple_test <input_path> <filter_path> <result_path>\n");
+    std::cout
+        << "Three argument expected. Usage: ./conv2d_simple_test <input_path> "
+           "<filter_path> <result_path> "
+        << std::endl;
     exit(1);
   }
 }
