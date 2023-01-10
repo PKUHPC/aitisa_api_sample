@@ -1,4 +1,4 @@
-#include "src/img/resize2d_bilinear.h"
+#include "resize2d_bilinear.h"
 #include "src/core/dispatch.h"
 
 #define resize2d_bilinear_kernel(typename)                                 \

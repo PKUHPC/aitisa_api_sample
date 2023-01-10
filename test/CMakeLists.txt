@@ -1,9 +1,8 @@
 # Add unit test files
 list(APPEND aitisa_test_srcs
-  relu_test.cpp
   matmul_simple_test.cpp
   conv2d_simple_test.cpp
-  resize2d_test.cpp
+  resize2d_bilinear_test.cpp
 )
 
 # Build a exe for each test files

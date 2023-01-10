@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
+#include "test/test_data/read_data.h"
 extern "C" {
-#include "src/img/resize2d_bilinear.h"
-// #include "src/tool/tool.h"
+#include "src/nn/resize2d_bilinear.h"
 }
 
 void resize2d_bilinear_assign_float(Tensor t) {
@@ -28,11 +28,11 @@ TEST(Resize, Float2d_case1) {
   Tensor output;
   aitisa_resize2d_bilinear(input, 5, 5, &output);
 
-  float* out_data = (float*)aitisa_tensor_data(output);
-  float test_data[] = {0.0,  0.18, 0.16, 0.34, 0.2,  0.06, 0.24, 0.22, 0.4,
-                       0.2,  0.32, 0.5,  0.48, 0.66, 0.5,  0.38, 0.56, 0.54,
-                       0.72, 0.5,  0.6,  0.6,  0.7,  0.7,  0.8};
+  auto out_data = (float*)aitisa_tensor_data(output);
   int64_t size = aitisa_tensor_size(output);
+  char path[] = "../../test/test_data/Resize_float2d_case1.dat";
+  float test_data[25];
+  read_date(path, test_data);
   for (int64_t i = 0; i < size; i++) {
     /* Due to the problem of precision, consider the two numbers
        are equal when their difference is less than 0.000001*/
@@ -54,9 +54,10 @@ TEST(Resize, Float2d_case2) {
   Tensor output;
   aitisa_resize2d_bilinear(input, 3, 3, &output);
 
-  float* out_data = (float*)aitisa_tensor_data(output);
-  float test_data[] = {0.,         0.43333333, 0.46666667, 0.56666667, 1.,
-                       1.03333333, 1.53333333, 1.96666667, 2.};
+  auto out_data = (float*)aitisa_tensor_data(output);
+  char path[] = "../../test/test_data/Resize_float2d_case2.dat";
+  float test_data[9];
+  read_date(path, test_data);
   int64_t size = aitisa_tensor_size(output);
   for (int64_t i = 0; i < size; i++) {
     /* Due to the problem of precision, consider the two numbers
