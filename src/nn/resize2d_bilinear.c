@@ -1,6 +1,6 @@
 #include "resize2d_bilinear.h"
 #include "src/core/dispatch.h"
-
+#include "math.h"
 #define resize2d_bilinear_kernel(typename)                                 \
   typename* in_data = aitisa_tensor_data(input);                           \
   typename* out_data = aitisa_tensor_data(*output);                        \
@@ -21,7 +21,7 @@
       double x = raw_u - u;                                                \
       double y = raw_v - v;                                                \
       out_data[i * target_w + j] = f00 * (1 - x) * (1 - y) +               \
-                                   f01 * x * (1 - y) + f10 * (1 - x) * y + \
+                                   f01 * (1 - x) * y + f10 * x * (1 - y) + \
                                    f11 * x * y;                            \
     }                                                                      \
   }
