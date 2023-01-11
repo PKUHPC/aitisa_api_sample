@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
     std::vector<float> input_data_vector, result_data_vector;
     read_data(argv[1], &input_ndim, &input_dims_vector, &input_dtype,
               &input_num, &input_data_vector);
-    read_resize_hw(argv[2], &target_h, &target_w);
+    read_resize_hw(argv[3], &target_h, &target_w);
     int64_t* input_dims;
     input_dims = (int64_t*)malloc(sizeof(int64_t) * input_ndim);
     memset(input_dims, 0, sizeof(int64_t) * input_ndim);
@@ -24,16 +24,16 @@ int main(int argc, char** argv) {
     aitisa_create(aitisa_int_to_dtype(input_dtype), device, input_dims,
                   input_ndim, nullptr, 0, &input);
     assign(input, input_data_vector);
-    std::cout << input_data_vector[0] << std::endl;
+    // std::cout << input_data_vector[0] << std::endl;
     aitisa_resize2d_bilinear(input, target_h, target_w, &output);
-    std::cout << "out " << std::endl;
+    // std::cout << "out " << std::endl;
     read_data(argv[2], &result_ndim, &result_dims_vector, &result_dtype,
               &result_num, &result_data_vector);
 
     auto output_data = (float*)aitisa_tensor_data(output);
     int64_t output_size = aitisa_tensor_size(output);
     for (int i = 0; i < output_size; ++i) {
-            std::cout << output_data[i] << std::endl;
+            //std::cout << output_data[i] << std::endl;
       if (abs(output_data[i] - result_data_vector[i]) > 1e-3) {
         std::cout << " mismatch!" << std::endl;
         exit(1);
