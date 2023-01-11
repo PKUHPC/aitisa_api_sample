@@ -26,6 +26,18 @@ void read_data(std::string path, int64_t* ndim, std::vector<int64_t>* dims,
   infile.close();
 }
 
+void read_resize_hw(std::string path, int64_t* target_h, int64_t* target_w) {
+  std::ifstream infile;
+  infile.open(path, std::ios::in);
+  if (!infile.is_open()) {
+    std::cout << "read error" << std::endl;
+    exit(1);
+  }
+  infile >> *target_h;
+  infile >> *target_w;
+  infile.close();
+}
+
 template <class datatype>
 void write_data(std::string path, int64_t ndim, std::vector<int64_t> dims,
                 int64_t dtype, int64_t num, datatype* a) {

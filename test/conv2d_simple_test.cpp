@@ -41,29 +41,14 @@ int main(int argc, char** argv) {
     aitisa_conv2d_simple(input, filter, &output);
     read_data(argv[3], &result_ndim, &result_dims_vector, &result_dtype,
               &result_num, &result_data_vector);
-    if (result_dtype == 8) {
-      auto output_data = (float*)aitisa_tensor_data(output);
-      int64_t output_size = aitisa_tensor_size(output);
-      for (int i = 0; i < output_size; ++i) {
-        //      std::cout << output_data[i] << std::endl;
-        if (abs(output_data[i] - result_data_vector[i]) > 1e-3) {
-          std::cout << " mismatch!" << std::endl;
-          exit(1);
-        }
+    auto output_data = (float*)aitisa_tensor_data(output);
+    int64_t output_size = aitisa_tensor_size(output);
+    for (int i = 0; i < output_size; ++i) {
+      //      std::cout << output_data[i] << std::endl;
+      if (abs(output_data[i] - result_data_vector[i]) > 1e-3) {
+        std::cout << " mismatch!" << std::endl;
+        exit(1);
       }
-    } else if (result_dtype == 9) {
-      auto output_data = (double*)aitisa_tensor_data(output);
-      int64_t output_size = aitisa_tensor_size(output);
-      for (int i = 0; i < output_size; ++i) {
-        //      std::cout << output_data[i] << std::endl;
-        if (abs(output_data[i] - result_data_vector[i]) > 1e-3) {
-          std::cout << " mismatch!" << std::endl;
-          exit(1);
-        }
-      }
-    } else {
-      std::cout << " unsupported dtype!" << std::endl;
-      exit(1);
     }
     free(input_dims);
     free(filter_dims);

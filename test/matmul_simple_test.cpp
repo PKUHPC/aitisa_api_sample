@@ -10,7 +10,7 @@ int main(int argc, char** argv) {
         result_dtype, input1_num, input2_num, result_num;
     std::vector<int64_t> input1_dims_vector, input2_dims_vector,
         result_dims_vector;
-    std::vector<double> input1_data_vector, input2_data_vector,
+    std::vector<float> input1_data_vector, input2_data_vector,
         result_data_vector;
     read_data(argv[1], &input1_ndim, &input1_dims_vector, &input1_dtype,
               &input1_num, &input1_data_vector);
@@ -37,39 +37,18 @@ int main(int argc, char** argv) {
                   input2_ndim, nullptr, 0, &input2);
     assign(input1, input1_data_vector);
     assign(input2, input2_data_vector);
-    for(int i=0;i<4;i++){
-      std::cout << input1_data_vector[i] << " and "  << input2_data_vector[i] << std::endl;
-    }
-    for(int i=0;i<2;i++){
-      std::cout << input1_dims[i] << " and "  << input2_dims[i] << std::endl;
-    }
+
     aitisa_matmul_simple(input1, input2, &output);
     read_data(argv[3], &result_ndim, &result_dims_vector, &result_dtype,
               &result_num, &result_data_vector);
-    if (result_dtype == 8) {
-      auto output_data = (float*)aitisa_tensor_data(output);
-      int64_t output_size = aitisa_tensor_size(output);
-      for (int i = 0; i < output_size; ++i) {
-        std::cout<< i  <<"output is " <<output_data[i] << "result is"<< result_data_vector[i]<<std::endl;
-        //      std::cout << output_data[i] << std::endl;
-        if (abs(output_data[i] - result_data_vector[i]) > 1e-3) {
-          std::cout << " mismatch!" << std::endl;
-          exit(1);
-        }
+    auto output_data = (float*)aitisa_tensor_data(output);
+    int64_t output_size = aitisa_tensor_size(output);
+    for (int i = 0; i < output_size; ++i) {
+      //      std::cout << output_data[i] << std::endl;
+      if (abs(output_data[i] - result_data_vector[i]) > 1e-3) {
+        std::cout << " mismatch!" << std::endl;
+        exit(1);
       }
-    } else if (result_dtype == 9) {
-      auto output_data = (double*)aitisa_tensor_data(output);
-      int64_t output_size = aitisa_tensor_size(output);
-      for (int i = 0; i < output_size; ++i) {
-        std::cout<< i  <<"output is " <<output_data[i] << "result is"<< result_data_vector[i]<<std::endl;
-        if (abs(output_data[i] - result_data_vector[i]) > 1e-3) {
-          std::cout << " mismatch!" << std::endl;
-          exit(1);
-        }
-      }
-    } else {
-      std::cout << " unsupported dtype!" << std::endl;
-      exit(1);
     }
     free(input1_dims);
     free(input2_dims);
