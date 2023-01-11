@@ -62,7 +62,7 @@ Calculate two-dimensional convolution based on 4D input tensor(N, C_in, H, W) an
 
 You can modify the macro CONV2D_KERNEL_SIMPLE in /src/nn/conv2d_simple.c to optimize the operator.
 
-If you want to test the operator yourself, you can run this in /build/bin/
+If you want to test the operator yourself, you can run this
 
 ```bash
 cd build
@@ -77,7 +77,7 @@ Resize 2D images with bilinear interpolation.
 
 You can modify the macro resize2d_bilinear_kernel in /src/nn/resize2d_bilinear.c to optimize the operator.
 
-If you want to test the operator yourself, you can run this in /build/bin/
+If you want to test the operator yourself, you can run this
 
 ```bash
 cd build
