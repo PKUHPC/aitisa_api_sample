@@ -24,9 +24,7 @@ int main(int argc, char** argv) {
     aitisa_create(aitisa_int_to_dtype(input_dtype), device, input_dims,
                   input_ndim, nullptr, 0, &input);
     assign(input, input_data_vector);
-    // std::cout << input_data_vector[0] << std::endl;
     aitisa_resize2d_bilinear(input, target_h, target_w, &output);
-    // std::cout << "out " << std::endl;
     read_data(argv[2], &result_ndim, &result_dims_vector, &result_dtype,
               &result_num, &result_data_vector);
 
@@ -48,7 +46,7 @@ int main(int argc, char** argv) {
     exit(1);
   } else {
     std::cout << "Three argument expected. Usage: ./resize2d_bilinear_test "
-                 "<input_path> <target_size_path> <result_path> "
+                 "<input_path> <result_path> <shape_path>"
               << std::endl;
     exit(1);
   }
