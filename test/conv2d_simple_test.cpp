@@ -20,14 +20,14 @@ int main(int argc, char** argv) {
 
     int64_t* input_dims;
     input_dims = (int64_t*)malloc(sizeof(int64_t) * input_ndim);
-    memset(input_dims, 0, sizeof(float) * input_ndim);
+    memset(input_dims, 0, sizeof(int64_t) * input_ndim);
     for (int i = 0; i < input_ndim; i++) {
       input_dims[i] = input_dims_vector[i];
     }
 
     int64_t* filter_dims;
     filter_dims = (int64_t*)malloc(sizeof(int64_t) * filter_ndim);
-    memset(filter_dims, 0, sizeof(float) * filter_ndim);
+    memset(filter_dims, 0, sizeof(int64_t) * filter_ndim);
     for (int i = 0; i < filter_ndim; i++) {
       filter_dims[i] = filter_dims_vector[i];
     }
@@ -39,18 +39,31 @@ int main(int argc, char** argv) {
     assign(input, input_data_vector);
     assign(filter, filter_data_vector);
     aitisa_conv2d_simple(input, filter, &output);
-
-    auto output_data = (float*)aitisa_tensor_data(output);
     read_data(argv[3], &result_ndim, &result_dims_vector, &result_dtype,
               &result_num, &result_data_vector);
-
-    int64_t output_size = aitisa_tensor_size(output);
-    for (int i = 0; i < output_size; ++i) {
-//      std::cout << output_data[i] << std::endl;
-      if (abs(output_data[i] - result_data_vector[i]) > 1e-3) {
-        std::cout << " mismatch" << std::endl;
-        exit(1);
+    if (result_dtype == 8) {
+      auto output_data = (float*)aitisa_tensor_data(output);
+      int64_t output_size = aitisa_tensor_size(output);
+      for (int i = 0; i < output_size; ++i) {
+        //      std::cout << output_data[i] << std::endl;
+        if (abs(output_data[i] - result_data_vector[i]) > 1e-3) {
+          std::cout << " mismatch!" << std::endl;
+          exit(1);
+        }
       }
+    } else if (result_dtype == 9) {
+      auto output_data = (double*)aitisa_tensor_data(output);
+      int64_t output_size = aitisa_tensor_size(output);
+      for (int i = 0; i < output_size; ++i) {
+        //      std::cout << output_data[i] << std::endl;
+        if (abs(output_data[i] - result_data_vector[i]) > 1e-3) {
+          std::cout << " mismatch!" << std::endl;
+          exit(1);
+        }
+      }
+    } else {
+      std::cout << " unsupported dtype!" << std::endl;
+      exit(1);
     }
     free(input_dims);
     free(filter_dims);
